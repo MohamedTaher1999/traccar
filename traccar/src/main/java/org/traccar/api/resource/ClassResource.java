@@ -2,7 +2,7 @@ package org.traccar.api.resource;
 
 import jakarta.annotation.security.PermitAll;
 import org.traccar.api.BaseObjectResource;
-import org.traccar.model.Class;
+import org.traccar.model.ClassModel;
 import org.traccar.model.Device;
 import org.traccar.model.User;
 import org.traccar.storage.StorageException;
@@ -26,16 +26,16 @@ import java.util.List;
 @Path("classes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ClassResource extends BaseObjectResource<Class> {
+public class ClassResource extends BaseObjectResource<ClassModel> {
 
 
     public ClassResource() {
-        super(Class.class);
+        super(ClassModel.class);
     }
 
     @GET
     @PermitAll
-    public Collection<Class> get(
+    public Collection<ClassModel> get(
             @QueryParam("all") boolean all,
             @QueryParam("userId") long userId) throws StorageException {
         var conditions = new LinkedList<Condition>();

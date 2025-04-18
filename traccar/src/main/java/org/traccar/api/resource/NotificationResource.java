@@ -28,11 +28,7 @@ import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.traccar.api.ExtendedObjectResource;
-import org.traccar.model.Event;
-import org.traccar.model.ManagedUser;
-import org.traccar.model.Notification;
-import org.traccar.model.Typed;
-import org.traccar.model.User;
+import org.traccar.model.*;
 import org.traccar.notification.MessageException;
 import org.traccar.notification.NotificationMessage;
 import org.traccar.notification.NotificatorManager;
@@ -43,11 +39,7 @@ import org.traccar.storage.query.Request;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Path("notifications")
@@ -142,6 +134,62 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
             }
         }
         return Response.noContent().build();
+    }
+
+
+    @POST
+    @Path("sendToGroup/{notificator}")
+    public Response sendMessageToGroup(
+            @PathParam("notificator") String notificator,
+            @QueryParam("groupId") List<Long> groupIds,
+            NotificationMessage message) throws MessageException, StorageException {
+
+        permissionsService.checkManager(getUserId());
+        int count = 0;
+
+        for(long groupId : groupIds ){
+            List<UserWithGroup> usersIdWithGroupID ;
+            List<User> users;
+            if (!permissionsService.notAdmin(getUserId())) {
+                usersIdWithGroupID = storage.getObjects(UserWithGroup.class, new Request(
+                        new Columns.Include("userid"),
+                        new Condition.Equals("groupid", groupId)));
+            }
+            else{
+                Condition c1 = new Condition.Equals("groupid", groupId);
+                Condition c2 = new Condition.Permission(User.class, getUserId(), ManagedUser.class).excludeGroups();
+                var conditions = new LinkedList<Condition>();
+                conditions.add(c1);
+                conditions.add(c2);
+                usersIdWithGroupID = storage.getObjects(UserWithGroup.class, new Request(
+                        new Columns.Include("userid"),
+                        Condition.merge(conditions)));
+            }
+
+            List<Long> userIds = new ArrayList<>();
+            for(UserWithGroup userWithGroup : usersIdWithGroupID)
+                userIds.add(userWithGroup.getUserid());
+
+            users = new ArrayList<>();
+            for (long userId : userIds) {
+                var conditions = new LinkedList<Condition>();
+                conditions.add(new Condition.Equals("id", userId));
+                if (permissionsService.notAdmin(getUserId())) {
+                    conditions.add(new Condition.Permission(
+                            User.class, getUserId(), ManagedUser.class).excludeGroups());
+                }
+                users.add(storage.getObject(
+                        User.class, new Request(new Columns.All(), Condition.merge(conditions))));
+            }
+            for (User user : users) {
+                if (!user.getTemporary()) {
+                    notificatorManager.getNotificator(notificator).send(user, message, null, null);
+                    count++;
+                }
+            }
+        }
+        return Response.ok(Map.of("sent", count)).build();
+
     }
 
 }
