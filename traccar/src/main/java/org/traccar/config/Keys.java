@@ -1181,7 +1181,7 @@ public final class Keys {
     public static final ConfigKey<String> NOTIFICATOR_TYPES = new StringConfigKey(
             "notificator.types",
             List.of(KeyType.CONFIG),
-            "web,mail,command");
+            "web,mail,command,firebase");
 
     /**
      * If the event time is too old, we should not send notifications. This parameter is the threshold value in

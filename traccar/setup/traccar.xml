@@ -9,4 +9,19 @@
     <entry key="database.user">traccaruser</entry>
     <entry key="database.password">traccaruser@123</entry>
 
+    <entry key='notificator.firebase.serviceAccount'>{
+        "type": "service_account",
+        "project_id": "a2k-tracking",
+        "private_key_id": "0fcf897fedb4cb66e842b89913c7bb7004404416",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDYWG2jGps2nD2Z\nBjAwdDO8GaUdM0ubKLMl8Ot5W8YFoNFNJjKKmXrYHCNbnkAsLAERGXXW7m0owA19\nRlTV7M5BPu3WDsdr3zh90FeyAJiwDLrIoFLE9LkyZgQN0b6PFFVPbFsZ8LXhxS9O\nOYtX+8/JyW8kWjTz6RD+6iOViIWiiJwyqGnAUtfeWWMmCMnzKqoombQ+ubBc8Qi7\ntJ5qSHhTzjebWWObYPjxY7IfY8TMA+4r6FflXXcuRVdwr1e8wC6SdpMldnJMrRTy\nEZ5XK2UdzVgzIQDpWY/dHtqpridQJ2PI9BJsb6BKNPaSe/Mra3pZIm4HVam5OsDg\nJWuChqFZAgMBAAECggEAVdm9ZBB+UEzu2qcMf2XVU8rfbTd6RK+Ba8hvQODMs1YO\nSG2kd8CQ8Wo1E7m4IG8z2yu9ydUiZx3THIfIyX1nmZeVvLBvrVxOqAqBikbXUGE0\ny8FnJvYv+ZJnAG7fjhqVAefvPNt66YUckQ+fvoHUAnCXVJchVTsC/g0+oqui0Axo\nGQk3FdXEu1XUGVIIGma68FZIAt47Eiqr6aHjgovMn6rlGR5h/SjmRhk/+qvqhrSz\n8joPRYFzOPKlOeUr7HJzpsa8DAryiKLR8/uv/XBlOmpbquw24159mEOm6Ab2JWvP\njcroVbE5JWDgzj1Pujd7AJX6N5YYHoAO9IMzrZvyUwKBgQDuEwh40zb1DNtPQFES\nddmFGrJVbJKD4OJ9dGNBAUDodLIbUkHc6k1gedeCc9tXfmF5TAesk1QwA6DllDwZ\natqhf5KeBefpT9yo57aiAjWkdMrxT2O0Pmj/M/auaBR3Zv2TEiLPy9rKpPCL/q9W\nsl+ARh9ud3X4KCEarSOtRHR5BwKBgQDooo//gRSswrs1LCckqB+4nFC0Tpb1l53k\nXa4DJ3Kj2D5fr2XITe6VfUG3yNQq1SA30xr5MrxtENflYuV2KrwabU5PfZVzFaLu\n9qgkC4WwuaEuC2BRXMMligieA1wnC5UNf3d6x5YhbmDquzFMOg4RBO412W7ChEbr\nuXwgvYVanwKBgQDNZCY+9xnGt9zMtpQ69OlAaBPKluygUfeUfEDU6BvzcBnocELa\nMFmpDfTbWtC03xeA6hME0+Yhtj+tUQG4e/M6uTDom/fD1V5tadqqUnWs+AXNwcwm\nyGEVKuN6+9gMWxIRO+hElX6grUPJw2PJzAGQTO75Ap8IBLbqqMzKwvApKQKBgQCA\n17AbGZmiyUM4Atk3Eypma6TDCBfRs4ROO5gpxQpYNmbtRc6AbrEp+DKSoFbp1ho+\n8NuqkvALE94O/IQLu0Vs+Yb6vZotIBmacd/T/tGvfFAJmWFiDpdCTj3RjhjWwzJt\nRGCfDrVWlLR2rPBzwF+UC4AHMQKIFwzUd2mJFI4sDwKBgAcOv/bcTRXba06sFD8o\n7U1OKlxVsMEvl4IbR0GudZSiAZcW6u1LJb8Diz2x3E0sEFLa0CcrqJP4PUYz02r2\nLxRx5mPgu2BP+vaLQro2vFlQ5ZcbxHhT3a0iJaiLKTnK2FYG61zJOagvQ5iSDguZ\ndQ4JLHv+yjMqb8bTI3lp///b\n-----END PRIVATE KEY-----\n",
+        "client_email": "firebase-adminsdk-fbsvc@a2k-tracking.iam.gserviceaccount.com",
+        "client_id": "115581995145006747561",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40a2k-tracking.iam.gserviceaccount.com",
+        "universe_domain": "googleapis.com"
+        }</entry>
+
+
 </properties>
