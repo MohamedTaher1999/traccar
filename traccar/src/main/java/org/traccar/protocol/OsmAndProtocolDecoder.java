@@ -124,6 +124,9 @@ public class OsmAndProtocolDecoder extends BaseHttpProtocolDecoder {
                     case "speed":
                         position.setSpeed(convertSpeed(Double.parseDouble(value), "kn"));
                         break;
+                    case "ismanual":
+                        position.setIsManual(Boolean.parseBoolean(value));
+                        break;
                     case "bearing":
                     case "heading":
                         position.setCourse(Double.parseDouble(value));

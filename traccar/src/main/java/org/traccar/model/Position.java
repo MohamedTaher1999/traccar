@@ -272,6 +272,16 @@ public class Position extends Message {
         this.speed = speed;
     }
 
+    private boolean ismanual;
+
+    public boolean isManual() {
+        return ismanual;
+    }
+
+    public void setIsManual(boolean ismanual) {
+        this.ismanual = ismanual;
+    }
+
     private double course;
 
     public double getCourse() {
