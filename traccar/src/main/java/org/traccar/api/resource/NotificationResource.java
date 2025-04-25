@@ -48,7 +48,8 @@ import java.util.stream.Collectors;
 public class NotificationResource extends ExtendedObjectResource<Notification> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotificationResource.class);
-
+    @Inject
+    private AnnouncementResource announcementResource;
     @Inject
     private NotificatorManager notificatorManager;
 
@@ -130,6 +131,14 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
         }
         for (User user : users) {
             if (!user.getTemporary()) {
+                Announcement announcement = new Announcement();
+                announcement.setSenderId(getUserId());
+                announcement.setReceiverId(user.getId());
+                announcement.setMessage(message.getBody());
+                announcement.setSubject(message.getSubject());
+                announcement.setNotificator(notificator);
+                announcement.setDate(new Date());
+                announcementResource.createAnnouncement(announcement);
                 notificatorManager.getNotificator(notificator).send(user, message, null, null);
             }
         }
@@ -183,6 +192,14 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
             }
             for (User user : users) {
                 if (!user.getTemporary()) {
+                    Announcement announcement = new Announcement();
+                    announcement.setSenderId(getUserId());
+                    announcement.setReceiverId(user.getId());
+                    announcement.setMessage(message.getBody());
+                    announcement.setSubject(message.getSubject());
+                    announcement.setNotificator(notificator);
+                    announcement.setDate(new Date());
+                    announcementResource.createAnnouncement(announcement);
                     notificatorManager.getNotificator(notificator).send(user, message, null, null);
                     count++;
                 }

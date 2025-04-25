@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+        logicalFilePath="changelog-6.9">
+    <changeSet author="author" id="changelog-6.9">
+        <createTable tableName="tc_announcements">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="senderid" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="VARCHAR(4000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="receiverid" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notificator" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="tc_announcements"
+                baseColumnNames="senderid"
+                constraintName="fk_announcement_sender_id"
+                referencedTableName="tc_users"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="tc_announcements"
+                baseColumnNames="receiverid"
+                constraintName="fk_announcement_receiver_id"
+                referencedTableName="tc_users"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="tc_announcements" indexName="idx_announcement_sender">
+            <column name="senderid"/>
+        </createIndex>
+
+        <createIndex tableName="tc_announcements" indexName="idx_announcement_receiver">
+            <column name="receiverid"/>
+        </createIndex>
+
+        <createIndex tableName="tc_announcements" indexName="idx_announcement_date">
+            <column name="date"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

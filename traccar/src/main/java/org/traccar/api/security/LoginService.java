@@ -113,8 +113,8 @@ public class LoginService {
                 return new LoginResult(user);
             }
         }
-        return null;
-//        return new LoginResult(user);
+//        return null;
+        return new LoginResult(user);
     }
 
     public LoginResult login(String email, String name, boolean administrator) throws StorageException {
