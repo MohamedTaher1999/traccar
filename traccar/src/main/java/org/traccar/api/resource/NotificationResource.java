@@ -109,26 +109,19 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
             NotificationMessage message) throws MessageException, StorageException {
         permissionsService.checkManager(getUserId());
         List<User> users;
-        if (userIds.isEmpty()) {
+
+        users = new ArrayList<>();
+        for (long userId : userIds) {
+            var conditions = new LinkedList<Condition>();
+            conditions.add(new Condition.Equals("id", userId));
             if (permissionsService.notAdmin(getUserId())) {
-                users = storage.getObjects(User.class, new Request(new Columns.All(),
-                        new Condition.Permission(User.class, getUserId(), ManagedUser.class).excludeGroups()));
-            } else {
-                users = storage.getObjects(User.class, new Request(new Columns.All()));
+                conditions.add(new Condition.Permission(
+                        User.class, getUserId(), ManagedUser.class).excludeGroups());
             }
-        } else {
-            users = new ArrayList<>();
-            for (long userId : userIds) {
-                var conditions = new LinkedList<Condition>();
-                conditions.add(new Condition.Equals("id", userId));
-                if (permissionsService.notAdmin(getUserId())) {
-                    conditions.add(new Condition.Permission(
-                            User.class, getUserId(), ManagedUser.class).excludeGroups());
-                }
-                users.add(storage.getObject(
-                        User.class, new Request(new Columns.All(), Condition.merge(conditions))));
-            }
+            users.add(storage.getObject(
+                    User.class, new Request(new Columns.All(), Condition.merge(conditions))));
         }
+
         for (User user : users) {
             if (!user.getTemporary()) {
                 Announcement announcement = new Announcement();
@@ -156,41 +149,25 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
         permissionsService.checkManager(getUserId());
         int count = 0;
 
-        for(long groupId : groupIds ){
-            List<UserWithGroup> usersIdWithGroupID ;
-            List<User> users;
-            if (!permissionsService.notAdmin(getUserId())) {
-                usersIdWithGroupID = storage.getObjects(UserWithGroup.class, new Request(
-                        new Columns.Include("userid"),
-                        new Condition.Equals("groupid", groupId)));
-            }
-            else{
-                Condition c1 = new Condition.Equals("groupid", groupId);
-                Condition c2 = new Condition.Permission(User.class, getUserId(), ManagedUser.class).excludeGroups();
-                var conditions = new LinkedList<Condition>();
-                conditions.add(c1);
-                conditions.add(c2);
-                usersIdWithGroupID = storage.getObjects(UserWithGroup.class, new Request(
-                        new Columns.Include("userid"),
-                        Condition.merge(conditions)));
-            }
+        for (long groupId : groupIds) {
+            List<UserWithGroup> usersIdWithGroupID;
+            List<User> usersList = new ArrayList<>();
+
+            usersIdWithGroupID = storage.getObjects(UserWithGroup.class, new Request(
+                    new Columns.All(),
+                    new Condition.Equals("groupid", groupId)));
+
 
             List<Long> userIds = new ArrayList<>();
-            for(UserWithGroup userWithGroup : usersIdWithGroupID)
+            for (UserWithGroup userWithGroup : usersIdWithGroupID)
                 userIds.add(userWithGroup.getUserid());
 
-            users = new ArrayList<>();
             for (long userId : userIds) {
-                var conditions = new LinkedList<Condition>();
-                conditions.add(new Condition.Equals("id", userId));
-                if (permissionsService.notAdmin(getUserId())) {
-                    conditions.add(new Condition.Permission(
-                            User.class, getUserId(), ManagedUser.class).excludeGroups());
-                }
-                users.add(storage.getObject(
-                        User.class, new Request(new Columns.All(), Condition.merge(conditions))));
+
+                usersList.add(storage.getObject(
+                        User.class, new Request(new Columns.All(), new Condition.Equals("id", userId))));
             }
-            for (User user : users) {
+            for (User user : usersList) {
                 if (!user.getTemporary()) {
                     Announcement announcement = new Announcement();
                     announcement.setSenderId(getUserId());
