@@ -42,10 +42,13 @@ public class AnnouncementResource extends BaseObjectResource<Announcement> {
     public Collection<Announcement> get(
             @QueryParam("receiverID") long userId
             ) throws StorageException {
-
-
+        long recieverID = 0;
+        if(userId == 0)
+            recieverID = getUserId();
+        else
+            recieverID = userId;
         return storage.getObjects(baseClass, new Request(
-                new Columns.All(), new Condition.Equals("receiverid", userId)));
+                new Columns.All(), new Condition.Equals("receiverid", recieverID)));
     }
 
     @POST
