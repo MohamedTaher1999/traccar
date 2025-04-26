@@ -21,6 +21,22 @@
     <entry key="database.user">traccaruser</entry>
     <entry key="database.password">traccaruser@123</entry>
 
+    <entry key='notificator.firebase.serviceAccount'><![CDATA[
+{
+  "type": "service_account",
+  "project_id": "a2k-tracking",
+  "private_key_id": "722ecc038cc08867ca0d4d716739108582c7ecca",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDO8LXmBrwwRWeP\nE7N1G6E+3nelqRgl3jZeIJow4fxvMH0ANhRsE+rTJWin/eRq/ALIzv4AZpobvVCt\noaa30ERqycSqhMmHbe/r0heT1wNexz7hX1FoHbsOYM9e80QtMvPp+75w2vxqWizk\n/MzE1VoGF2GBnQt/Gxb94JnlawBLkLRMw5OIFP+r48YqnYXgofQlpGVR3ywTSDL/\nctk0zGvs+GhfeT09OLoisBkKNJFPY1M/2+YdC1Bk3J+S+Dt+A/NrT11UWoelokkr\ngJye8GkcR75816q4OTI6WXzIgw8mbyGQLETAGlY1zz8CsM42YdzxqbmM00TF81sZ\nuiXc6DTxAgMBAAECggEABkic3V06/aQ93sRUYKv0G3qZ23fk+dFjiTwoMm/KQH4S\nbZ02xYldSggKw38cHnuEgiB26gAzkcAP4RXVgCNc0HlL9XmOvQQDkv+QI7cVrR0T\ntbg1OpocgfVClrmASncPnP097SNZIsmWL2XVuexYjXLMTSk9niBudEsLoUG8go7W\nSTNv1cGsz/VhX/kf5fOHTg+DdsE1fzmpk23l44rPtAwq90NWVAu0+MYaq4dnDCVa\no84INU1yqT0Fh0jmSU3P1BLHPtjNVH859Uvi0vYuyxYgrxLWe5YCu/1yzq6FGTGt\nSk2PdByaaVvdIbC2t7QeD9KzsLHsxnbMabsV2sWi2QKBgQD1K/6RX91UUzop9NGY\n5m6dm0h/l32AdOnBEyMKCZykCf8YFiluGi6w5kxAlU52a1OVLRrYqnHs6FJij54t\nxJ7B33B5UP7mqs+I4EXFA8RqjZCoKws/rIDUjy8RXoNFcSfvGm/EXKg9/iDw/B0S\nrCGrQwCelOGwf4rbWLfu7hhU1wKBgQDYFHSaD1LeVhCcSxZMSs4QGMpVnPbdOBO6\nmD8sYN6TSimNmACeExU5zRqXJzBi/TlSYOH7x84jE5uimhEKGJQhnABs8A4psGVY\nikj6OxMRsNDYao89tXc7MTA8Dn3i9X/+v3fWXUN1XC4c8PwjbhlfvoOaqQGZXue+\nNNohmK/DdwKBgCnRCShue2eokmEZmq5Dj1ZeZ+0rP4Krbjs6Ml3B6e+orNPE4+gd\nmx0dCqBxVuKnx6fH+6481BWeQn8BE++me5WBsMNgZzmcpK0p43yI+fVak/O68742\ng/q9OT/zKNytQixsC+goDaIVODUiKytGJK/7S53AswXRmzNyXFzqS0gdAoGAJhTE\nz/nvYtvMJZ9eGKf+VPvpfNki8K3XXEVErO+NimvBkwC86x712K/7BbSUZH24Qnps\nmVEHVUs5XJjGc/8M7DdwI8LS3CoIUmhcoC0VGUMOK3XsNLXsg3QRyiPLr9oQarcX\nyaG6J87NGbCm3x+iPSt4SiOK8pq1QOJTpyQfpdUCgYBZc4Cx94QkWXtf2M0412U9\nfo4LHH4NqZ7MrrzkADDEneDsOmpZolM+eFWiwhyM9m3MSw5y8ipAynfaGs2RgU/i\nBhxClX5D/8LPLdxvqnFvynT62Xb8+3D+1HQKa5t/TBmrxhScht8X4mTGmJw1u3iN\na1/CpT0zWhfPGNlbw9LJuw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@a2k-tracking.iam.gserviceaccount.com",
+  "client_id": "115581995145006747561",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40a2k-tracking.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+]]></entry>
+
     <!--<entry key='server.instantAcknowledgement'>true</entry>
     <entry key='server.buffering.threshold'>5000</entry>-->
 
