@@ -16,10 +16,7 @@
  */
 package org.traccar.notificators;
 
-import org.traccar.model.Event;
-import org.traccar.model.Notification;
-import org.traccar.model.Position;
-import org.traccar.model.User;
+import org.traccar.model.*;
 import org.traccar.notification.MessageException;
 import org.traccar.notification.NotificationFormatter;
 import org.traccar.notification.NotificationMessage;
@@ -40,6 +37,10 @@ public abstract class Notificator {
     }
 
     public void send(User user, NotificationMessage message, Event event, Position position) throws MessageException {
+        throw new UnsupportedOperationException();
+    }
+
+    public void send(Device device, NotificationMessage message, Event event, Position position) throws MessageException {
         throw new UnsupportedOperationException();
     }
 

@@ -53,10 +53,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Path("devices")
 @Produces(MediaType.APPLICATION_JSON)
@@ -135,7 +132,43 @@ public class DeviceResource extends BaseObjectResource<Device> {
 
         }
     }
+    @Path("all")
+    @GET
+    public Collection<Device> getAllDevices(
+            ) throws StorageException {
 
+        return storage.getObjects(baseClass, new Request(
+                new Columns.All()));
+    }
+    @Path("{id}/token")
+    @POST
+    public Response updateFirebaseToken(
+            @PathParam("id") String deviceId,
+            @QueryParam("firebaseToken") String firebaseToken) throws StorageException {
+
+        Device device = storage.getObject(Device.class, new Request(
+                new Columns.All(),
+                new Condition.Equals("uniqueid", deviceId)));
+
+        if (device != null) {
+            // Create attributes if they don't exist
+            if (device.getAttributes() == null) {
+                device.setAttributes(new HashMap<>());
+            }
+
+            // Update the firebase token in attributes
+            device.getAttributes().put("notificationTokens", firebaseToken);
+
+            // Save the updated device
+            storage.updateObject(device, new Request(
+                    new Columns.Include("attributes"),
+                    new Condition.Equals("uniqueid", deviceId)));
+
+            return Response.ok(Map.of("status", "success", "message", "Token updated successfully")).build();
+        }
+
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
     @Path("{id}/accumulators")
     @PUT
     public Response updateAccumulators(DeviceAccumulators entity) throws Exception {

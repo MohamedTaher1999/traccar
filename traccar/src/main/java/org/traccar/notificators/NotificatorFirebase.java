@@ -32,10 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.traccar.config.Config;
 import org.traccar.config.Keys;
-import org.traccar.model.Event;
-import org.traccar.model.ObjectOperation;
-import org.traccar.model.Position;
-import org.traccar.model.User;
+import org.traccar.model.*;
 import org.traccar.notification.MessageException;
 import org.traccar.notification.NotificationFormatter;
 import org.traccar.notification.NotificationMessage;
@@ -140,4 +137,64 @@ public class NotificatorFirebase extends Notificator {
         }
     }
 
+    @Override
+    public void send(Device device, NotificationMessage message, Event event, Position position) throws MessageException {
+        if (device.hasAttribute("notificationTokens")) {
+
+            List<String> registrationTokens = new ArrayList<>(
+                    Arrays.asList(device.getString("notificationTokens").split("[, ]")));
+
+            var messageBuilder = MulticastMessage.builder()
+                    .setNotification(com.google.firebase.messaging.Notification.builder()
+                            .setTitle(message.getSubject())
+                            .setBody(message.getBody())
+                            .build())
+                    .setAndroidConfig(AndroidConfig.builder()
+                            .setNotification(AndroidNotification.builder()
+                                    .setSound("default")
+                                    .build())
+                            .build())
+                    .setApnsConfig(ApnsConfig.builder()
+                            .setAps(Aps.builder()
+                                    .setSound("default")
+                                    .build())
+                            .build())
+                    .addAllTokens(registrationTokens);
+
+            if (event != null) {
+                messageBuilder.putData("eventId", String.valueOf(event.getId()));
+            }
+
+            try {
+                var result = FirebaseMessaging.getInstance().sendEachForMulticast(messageBuilder.build());
+                List<String> failedTokens = new LinkedList<>();
+                var iterator = result.getResponses().listIterator();
+                while (iterator.hasNext()) {
+                    int index = iterator.nextIndex();
+                    var response = iterator.next();
+                    if (!response.isSuccessful()) {
+                        MessagingErrorCode error = response.getException().getMessagingErrorCode();
+                        if (error == MessagingErrorCode.INVALID_ARGUMENT || error == MessagingErrorCode.UNREGISTERED) {
+                            failedTokens.add(registrationTokens.get(index));
+                        }
+                        LOGGER.warn("Firebase user {} error", device.getUniqueId(), response.getException());
+                    }
+                }
+                if (!failedTokens.isEmpty()) {
+                    registrationTokens.removeAll(failedTokens);
+                    if (registrationTokens.isEmpty()) {
+                        device.getAttributes().remove("notificationTokens");
+                    } else {
+                        device.set("notificationTokens", String.join(",", registrationTokens));
+                    }
+                    storage.updateObject(device, new Request(
+                            new Columns.Include("attributes"),
+                            new Condition.Equals("uniqueid", device.getUniqueId())));
+                    cacheManager.invalidateObject(true, Device.class, device.getId(), ObjectOperation.UPDATE);
+                }
+            } catch (Exception e) {
+                LOGGER.warn("Firebase error", e);
+            }
+        }
+    }
 }

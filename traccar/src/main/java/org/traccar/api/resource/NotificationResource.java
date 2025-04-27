@@ -138,7 +138,36 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
         return Response.noContent().build();
     }
 
+    @POST
+    @Path("sendToDevices/{notificator}")
+    public Response sendDevicesMessage(
+            @PathParam("notificator") String notificator, @QueryParam("deivceId") List<String> deviceIds,
+            NotificationMessage message) throws MessageException, StorageException {
+        permissionsService.checkManager(getUserId());
+        List<Device> devices;
 
+        devices = new ArrayList<>();
+        for (String deviceId : deviceIds) {
+
+            devices.add(storage.getObject(
+                    Device.class, new Request(new Columns.All(),new Condition.Equals("uniqueid", deviceId) )));
+        }
+
+        for (Device device : devices) {
+
+//                Announcement announcement = new Announcement();
+//                announcement.setSenderId(getUserId());
+//                announcement.setReceiverId(user.getId());
+//                announcement.setMessage(message.getBody());
+//                announcement.setSubject(message.getSubject());
+//                announcement.setNotificator(notificator);
+//                announcement.setDate(new Date());
+   //             announcementResource.createAnnouncement(announcement);
+                notificatorManager.getNotificator(notificator).send(device, message, null, null);
+
+        }
+        return Response.noContent().build();
+    }
     @POST
     @Path("sendToGroup/{notificator}")
     public Response sendMessageToGroup(
