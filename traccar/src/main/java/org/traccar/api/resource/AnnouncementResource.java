@@ -15,12 +15,14 @@
  */
 package org.traccar.api.resource;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.traccar.api.BaseObjectResource;
 import org.traccar.api.SimpleObjectResource;
 import org.traccar.model.Announcement;
+import org.traccar.model.Device;
 import org.traccar.storage.StorageException;
 import org.traccar.storage.query.Columns;
 import org.traccar.storage.query.Condition;
@@ -69,5 +71,16 @@ public class AnnouncementResource extends BaseObjectResource<Announcement> {
 
         // Return the created announcement with its ID
         return announcement;
+    }
+
+    @GET
+    @Path("deviceAnnouncements")
+    @PermitAll
+        public Collection<Announcement> getAnnouncementForDevice(@QueryParam("deviceId") String deviceId) throws StorageException {
+        if(deviceId == null)
+            return new LinkedList<>();
+
+        return storage.getObjects(baseClass, new Request(
+                new Columns.All(), new Condition.Equals("deviceId", deviceId)));
     }
 }

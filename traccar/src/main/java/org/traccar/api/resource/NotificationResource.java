@@ -155,14 +155,15 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
 
         for (Device device : devices) {
 
-//                Announcement announcement = new Announcement();
-//                announcement.setSenderId(getUserId());
-//                announcement.setReceiverId(user.getId());
-//                announcement.setMessage(message.getBody());
-//                announcement.setSubject(message.getSubject());
-//                announcement.setNotificator(notificator);
-//                announcement.setDate(new Date());
-   //             announcementResource.createAnnouncement(announcement);
+                Announcement announcement = new Announcement();
+                announcement.setSenderId(getUserId());
+                announcement.setReceiverId(getUserId());
+                announcement.setMessage(message.getBody());
+                announcement.setSubject(message.getSubject());
+                announcement.setNotificator(notificator);
+                announcement.setDeviceId(device.getUniqueId());
+                announcement.setDate(new Date());
+                announcementResource.createAnnouncement(announcement);
                 notificatorManager.getNotificator(notificator).send(device, message, null, null);
 
         }

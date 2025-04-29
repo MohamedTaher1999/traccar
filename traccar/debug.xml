@@ -21,21 +21,19 @@
     <entry key="database.user">traccaruser</entry>
     <entry key="database.password">traccaruser@123</entry>
 
-    <entry key='notificator.firebase.serviceAccount'><![CDATA[
-{
-  "type": "service_account",
-  "project_id": "a2k-tracking",
-  "private_key_id": "722ecc038cc08867ca0d4d716739108582c7ecca",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDO8LXmBrwwRWeP\nE7N1G6E+3nelqRgl3jZeIJow4fxvMH0ANhRsE+rTJWin/eRq/ALIzv4AZpobvVCt\noaa30ERqycSqhMmHbe/r0heT1wNexz7hX1FoHbsOYM9e80QtMvPp+75w2vxqWizk\n/MzE1VoGF2GBnQt/Gxb94JnlawBLkLRMw5OIFP+r48YqnYXgofQlpGVR3ywTSDL/\nctk0zGvs+GhfeT09OLoisBkKNJFPY1M/2+YdC1Bk3J+S+Dt+A/NrT11UWoelokkr\ngJye8GkcR75816q4OTI6WXzIgw8mbyGQLETAGlY1zz8CsM42YdzxqbmM00TF81sZ\nuiXc6DTxAgMBAAECggEABkic3V06/aQ93sRUYKv0G3qZ23fk+dFjiTwoMm/KQH4S\nbZ02xYldSggKw38cHnuEgiB26gAzkcAP4RXVgCNc0HlL9XmOvQQDkv+QI7cVrR0T\ntbg1OpocgfVClrmASncPnP097SNZIsmWL2XVuexYjXLMTSk9niBudEsLoUG8go7W\nSTNv1cGsz/VhX/kf5fOHTg+DdsE1fzmpk23l44rPtAwq90NWVAu0+MYaq4dnDCVa\no84INU1yqT0Fh0jmSU3P1BLHPtjNVH859Uvi0vYuyxYgrxLWe5YCu/1yzq6FGTGt\nSk2PdByaaVvdIbC2t7QeD9KzsLHsxnbMabsV2sWi2QKBgQD1K/6RX91UUzop9NGY\n5m6dm0h/l32AdOnBEyMKCZykCf8YFiluGi6w5kxAlU52a1OVLRrYqnHs6FJij54t\nxJ7B33B5UP7mqs+I4EXFA8RqjZCoKws/rIDUjy8RXoNFcSfvGm/EXKg9/iDw/B0S\nrCGrQwCelOGwf4rbWLfu7hhU1wKBgQDYFHSaD1LeVhCcSxZMSs4QGMpVnPbdOBO6\nmD8sYN6TSimNmACeExU5zRqXJzBi/TlSYOH7x84jE5uimhEKGJQhnABs8A4psGVY\nikj6OxMRsNDYao89tXc7MTA8Dn3i9X/+v3fWXUN1XC4c8PwjbhlfvoOaqQGZXue+\nNNohmK/DdwKBgCnRCShue2eokmEZmq5Dj1ZeZ+0rP4Krbjs6Ml3B6e+orNPE4+gd\nmx0dCqBxVuKnx6fH+6481BWeQn8BE++me5WBsMNgZzmcpK0p43yI+fVak/O68742\ng/q9OT/zKNytQixsC+goDaIVODUiKytGJK/7S53AswXRmzNyXFzqS0gdAoGAJhTE\nz/nvYtvMJZ9eGKf+VPvpfNki8K3XXEVErO+NimvBkwC86x712K/7BbSUZH24Qnps\nmVEHVUs5XJjGc/8M7DdwI8LS3CoIUmhcoC0VGUMOK3XsNLXsg3QRyiPLr9oQarcX\nyaG6J87NGbCm3x+iPSt4SiOK8pq1QOJTpyQfpdUCgYBZc4Cx94QkWXtf2M0412U9\nfo4LHH4NqZ7MrrzkADDEneDsOmpZolM+eFWiwhyM9m3MSw5y8ipAynfaGs2RgU/i\nBhxClX5D/8LPLdxvqnFvynT62Xb8+3D+1HQKa5t/TBmrxhScht8X4mTGmJw1u3iN\na1/CpT0zWhfPGNlbw9LJuw==\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-fbsvc@a2k-tracking.iam.gserviceaccount.com",
-  "client_id": "115581995145006747561",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40a2k-tracking.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
-]]></entry>
+    <entry key='notificator.firebase.serviceAccount'>{
+        "type": "service_account",
+        "project_id": "a2k-tracking",
+        "private_key_id": "46543cf147930ebedd1993b8e74acbefee6859b2",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDGoGd6dOTLVzWv\nzKTBz31UBnnAUWrc6uf6nVhjx7gQl1s0eeo4kVqwznGjsBWac9+hIth1PhCycX0t\nWOvvzBHQKo0zlQQgAB9BzJ0EDF74a75WMyL7drMJUQSVj0+OJZn30BfNqMdTU1mT\nnVVmewjiCbG5+gMHwavPlWQcdwtuVeAYyRJJh/waffKkkG3r2miQOHqIwlwkgIqn\nd5vv48XJjBlwnMbIYSbRfr8+mfmxnTglspOqoSA/dIfSyM78oGxI5IyaIB1cbBkT\n0C7yZVhlmwllEdP4rQwCJMmwzgecOxMjPjlGBGco1rfZVilqHaVnvzXqorruTQLq\nxjA/i81NAgMBAAECggEAMTXajVdavBpOPdD43N+4UFIOZhyF2lgEw22qUYZQzyOA\nwD6YTg2NJ5LuSry8jXi55iVI9bs7zcoaVlrakZ3AqA9yzl3UGM2O8PFt0WvzN58S\nGC8xMpYVA3DkLt3DuxcLz37p9tUjFTzoS49Gck53Q/Fc7BPKHmjYVWTQ2dCQr3P9\nfIIRrdZGG2FKZRHK6VB2EUWiuoNzIsByCxaDvQ6QvE+sCm4GK2kivFjYxNR1BzQK\noTOh5L+BRTBrmy0bsVfnZfZ7HZWNLeIIZAnjPT4QyCPdgpHPUx6ZG+RpTQ0SS45P\nUUpChIsSQ/meddTZ3Y5T1BactWtG6LORnzzbVtmsTQKBgQDnYsZT2AaoxpqwJz/R\n/P75ZDZW/zlSA2MaGuDhra3Y9ojctNJXZP3oU9Bb5CnVG0YnJR+w27Tm96ZLnNUP\ngnlw3oHRSOyQ6lW7KY0SEgQs7VJ+hyG1wL/hJV7a0+aG9oW5Qx2PkaLa/TqLIIdc\ny3Niiup/VuN1dK7M5WAOU8Qs1wKBgQDbwYLwJAeP4FhILO88WuYaJckIXomQvX5L\n1iFpfmr/johQ/eoNnRKEfIVkuuTJEX2mSn+iNQUibIfTTp2J/X5E78mfVKjSwdi3\nNxZ1MrkVTIl5aBgqoLYnl0xGqLYh3X8Rs/Tl84xHFLwYTBfZnuYGmL6QhDOfaERy\njTQky42OewKBgFNCSZcV3p+Qh0zncqF+5cibdKotQFTwfxJ/pXfPZQTzASBZuG5W\nGr8kmY7XNO5H2CBxzUt4Y0nQxvfiQRBJpKUmi5PhJ66lg5/LPcXI0dPQuaRpv4mF\nCAZdyhn3sbXSsx+MtPBaOT2PbSdu1wZe9u/4iJS1kTdMezGjP8MoBSkVAoGACwWW\noqK7+lxfMSeHzDgm6FLS1WegcLEAX59ax6a+iRjF/4HstkgVgK2aJyY0iV0mNyvv\nYNxV6JcW7OM5hY1AQwbfzuz5FrEARJgvuSsVG1teXcd5xtGOsUemXLjjgalRUTr8\nYngnpf0FPha674BHuzb3/9mRmUIqhLBOWDYZYHcCgYAbf0Fws4I5jT2erUQliXIE\nrj+jPjkvnE4WBidEyBUYrq2B6nEu4fd00aVbcMuaW8DmEhScrpXjT6595U4uBMY/\ngXsL0KwRUC3S/10cBEWx34QxO7LyCbLvvObKeYgt3h5hlkMAegHpaEae4j/6uYM4\n443BvmDoXJQc9iSmRtpZJA==\n-----END PRIVATE KEY-----\n",
+        "client_email": "firebase-adminsdk-fbsvc@a2k-tracking.iam.gserviceaccount.com",
+        "client_id": "115581995145006747561",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40a2k-tracking.iam.gserviceaccount.com",
+        "universe_domain": "googleapis.com"
+        }</entry>
 
     <!--<entry key='server.instantAcknowledgement'>true</entry>
     <entry key='server.buffering.threshold'>5000</entry>-->

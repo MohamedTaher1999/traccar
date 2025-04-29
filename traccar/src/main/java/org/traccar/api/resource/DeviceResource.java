@@ -15,6 +15,7 @@
  */
 package org.traccar.api.resource;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.ws.rs.FormParam;
 import org.traccar.api.BaseObjectResource;
 import org.traccar.api.signature.TokenManager;
@@ -142,6 +143,7 @@ public class DeviceResource extends BaseObjectResource<Device> {
     }
     @Path("{id}/token")
     @POST
+    @PermitAll
     public Response updateFirebaseToken(
             @PathParam("id") String deviceId,
             @QueryParam("firebaseToken") String firebaseToken) throws StorageException {

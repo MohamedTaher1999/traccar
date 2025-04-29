@@ -15,6 +15,17 @@ public class Announcement extends BaseModel {
 
     private long receiverId;
 
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    private String deviceId;
+
+
     private Date date;
 
     private String notificator;
