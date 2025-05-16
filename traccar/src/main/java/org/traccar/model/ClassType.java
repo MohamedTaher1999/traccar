@@ -3,9 +3,18 @@ package org.traccar.model;
 import org.traccar.storage.StorageName;
 
 @StorageName("tc_classes")
-public class ClassModel extends ExtendedModel {
+public class ClassType extends ExtendedModel {
     private String name;
     private String description;
+    private long classId;
+
+    public long getClassId() {
+        return classId;
+    }
+
+    public void setClassId(long classId) {
+        this.classId = classId;
+    }
 
     public String getName() {
         return name;

@@ -274,7 +274,7 @@ public class Position extends Message {
 
     private boolean ismanual;
 
-    public boolean isManual() {
+    public boolean getIsManual() {
         return ismanual;
     }
 

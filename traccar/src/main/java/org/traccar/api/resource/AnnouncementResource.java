@@ -22,7 +22,6 @@ import jakarta.ws.rs.core.Response;
 import org.traccar.api.BaseObjectResource;
 import org.traccar.api.SimpleObjectResource;
 import org.traccar.model.Announcement;
-import org.traccar.model.Device;
 import org.traccar.storage.StorageException;
 import org.traccar.storage.query.Columns;
 import org.traccar.storage.query.Condition;

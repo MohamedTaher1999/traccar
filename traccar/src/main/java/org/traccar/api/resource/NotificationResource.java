@@ -141,7 +141,7 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
     @POST
     @Path("sendToDevices/{notificator}")
     public Response sendDevicesMessage(
-            @PathParam("notificator") String notificator, @QueryParam("deivceId") List<String> deviceIds,
+            @PathParam("notificator") String notificator, @QueryParam("deviceId") List<String> deviceIds,
             NotificationMessage message) throws MessageException, StorageException {
         permissionsService.checkManager(getUserId());
         List<Device> devices;
@@ -216,4 +216,50 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
 
     }
 
+    @POST
+    @Path("sendToClass/{notificator}")
+    public Response sendMessageToClass(
+            @PathParam("notificator") String notificator,
+            @QueryParam("classId") List<Long> classIds,
+            NotificationMessage message) throws MessageException, StorageException {
+
+        permissionsService.checkManager(getUserId());
+        int count = 0;
+
+        for (long classId : classIds) {
+            List<UserWithClass> usersIdWithClassID;
+            List<User> usersList = new ArrayList<>();
+
+            usersIdWithClassID = storage.getObjects(UserWithClass.class, new Request(
+                    new Columns.All(),
+                    new Condition.Equals("classid", classId)));
+
+
+            List<Long> userIds = new ArrayList<>();
+            for (UserWithClass userWithClass : usersIdWithClassID)
+                userIds.add(userWithClass.getUserid());
+
+            for (long userId : userIds) {
+
+                usersList.add(storage.getObject(
+                        User.class, new Request(new Columns.All(), new Condition.Equals("id", userId))));
+            }
+            for (User user : usersList) {
+                if (!user.getTemporary()) {
+                    Announcement announcement = new Announcement();
+                    announcement.setSenderId(getUserId());
+                    announcement.setReceiverId(user.getId());
+                    announcement.setMessage(message.getBody());
+                    announcement.setSubject(message.getSubject());
+                    announcement.setNotificator(notificator);
+                    announcement.setDate(new Date());
+                    announcementResource.createAnnouncement(announcement);
+                    notificatorManager.getNotificator(notificator).send(user, message, null, null);
+                    count++;
+                }
+            }
+        }
+        return Response.ok(Map.of("sent", count)).build();
+
+    }
 }
