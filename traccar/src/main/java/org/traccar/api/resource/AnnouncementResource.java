@@ -27,9 +27,12 @@ import org.traccar.storage.query.Columns;
 import org.traccar.storage.query.Condition;
 import org.traccar.storage.query.Request;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 @Path("announcements")
 @Produces(MediaType.APPLICATION_JSON)
@@ -51,7 +54,31 @@ public class AnnouncementResource extends BaseObjectResource<Announcement> {
         return storage.getObjects(baseClass, new Request(
                 new Columns.All(), new Condition.Equals("receiverid", recieverID)));
     }
+    @GET
+    @Path("/recent")
+    public Collection<Announcement> getRecent(
+            @QueryParam("receiverID") long userId
+    ) throws StorageException {
+        long receiverID = userId == 0 ? getUserId() : userId;
 
+        // First get all announcements for the user
+        Collection<Announcement> allAnnouncements = storage.getObjects(baseClass,
+                new Request(new Columns.All(), new Condition.Equals("receiverid", receiverID)));
+
+        // Calculate the cutoff date (3 days ago)
+        LocalDateTime cutoffDate = LocalDateTime.now().minusDays(3);
+
+        // Filter announcements to only keep those from the last 3 days
+        return allAnnouncements.stream()
+                .filter(announcement -> {
+                    // Convert the announcement date to LocalDateTime if it's not already
+                    LocalDateTime announcementDate = announcement.getDate().toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDateTime();
+                    return announcementDate.isAfter(cutoffDate);
+                })
+                .collect(Collectors.toList());
+    }
     @POST
     public Response add(Announcement entity) throws StorageException {
         // Use the create method and return the response
