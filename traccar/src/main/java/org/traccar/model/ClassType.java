@@ -6,15 +6,7 @@ import org.traccar.storage.StorageName;
 public class ClassType extends ExtendedModel {
     private String name;
     private String description;
-    private long classId;
 
-    public long getClassId() {
-        return classId;
-    }
-
-    public void setClassId(long classId) {
-        this.classId = classId;
-    }
 
     public String getName() {
         return name;
