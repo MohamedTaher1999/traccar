@@ -14,6 +14,8 @@ import NotificationsPage from './settings/NotificationsPage';
 import NotificationPage from './settings/NotificationPage';
 import GroupsPage from './settings/GroupsPage';
 import GroupPage from './settings/GroupPage';
+import ClassesPage from './settings/ClassesPage';
+import ClassPage from './settings/ClassPage';
 import PositionPage from './other/PositionPage';
 import NetworkPage from './other/NetworkPage';
 import EventReportPage from './reports/EventReportPage';
@@ -58,10 +60,13 @@ import SharePage from './settings/SharePage';
 import AnnouncementPage from './settings/AnnouncementPage';
 import EmulatorPage from './other/EmulatorPage';
 import Loader from './common/components/Loader';
+import { generateLoginToken } from './common/components/NativeInterface';
+import { useLocalization } from './common/components/LocalizationProvider';
 
 const Navigation = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { setLanguage } = useLocalization();
 
   const [redirectsHandled, setRedirectsHandled] = useState(false);
 
@@ -69,6 +74,9 @@ const Navigation = () => {
   const query = useQuery();
 
   useEffectAsync(async () => {
+    if (query.get('locale')) {
+      setLanguage(query.get('locale'));
+    }
     if (query.get('token')) {
       const token = query.get('token');
       await fetch(`/api/session?token=${encodeURIComponent(token)}`);
@@ -88,6 +96,11 @@ const Navigation = () => {
     } else if (query.get('eventId')) {
       const eventId = parseInt(query.get('eventId'), 10);
       navigate(`/event/${eventId}`);
+    } else if (query.get('openid')) {
+      if (query.get('openid') === 'success') {
+        generateLoginToken();
+      }
+      navigate('/');
     } else {
       setRedirectsHandled(true);
     }
@@ -109,7 +122,7 @@ const Navigation = () => {
         <Route path="network/:positionId" element={<NetworkPage />} />
         <Route path="event/:id" element={<EventPage />} />
         <Route path="replay" element={<ReplayPage />} />
-        <Route path="geofences" element={<GeofencesPage />} />
+        <Route path="stops" element={<GeofencesPage />} />
         <Route path="emulator" element={<EmulatorPage />} />
 
         <Route path="settings">
@@ -133,13 +146,16 @@ const Navigation = () => {
           <Route path="drivers" element={<DriversPage />} />
           <Route path="driver/:id" element={<DriverPage />} />
           <Route path="driver" element={<DriverPage />} />
-          <Route path="geofence/:id" element={<GeofencePage />} />
-          <Route path="geofence" element={<GeofencePage />} />
+          <Route path="stop/:id" element={<GeofencePage />} />
+          <Route path="stop" element={<GeofencePage />} />
           <Route path="groups" element={<GroupsPage />} />
           <Route path="group/:id/connections" element={<GroupConnectionsPage />} />
           <Route path="group/:id/command" element={<CommandGroupPage />} />
           <Route path="group/:id" element={<GroupPage />} />
           <Route path="group" element={<GroupPage />} />
+          <Route path="classes" element={<ClassesPage />} />
+          <Route path="class/:id" element={<ClassPage />} />
+          <Route path="class" element={<ClassPage />} />
           <Route path="maintenances" element={<MaintenancesPage />} />
           <Route path="maintenance/:id" element={<MaintenancePage />} />
           <Route path="maintenance" element={<MaintenancePage />} />

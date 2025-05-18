@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
-  FormControl, InputLabel, MenuItem, Select, Autocomplete, TextField,
-} from '@mui/material';
-import { useEffectAsync } from '../../reactHelper';
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Autocomplete,
+  TextField,
+} from "@mui/material";
+import { useEffectAsync } from "../../reactHelper";
 
 const SelectField = ({
   label,
@@ -10,17 +15,18 @@ const SelectField = ({
   multiple,
   value = null,
   emptyValue = null,
-  emptyTitle = '',
+  emptyTitle = "",
   onChange,
   endpoint,
   data,
   keyGetter = (item) => item.id,
   titleGetter = (item) => item.name,
+  disabled = false, // Add disabled prop here
 }) => {
   const [items, setItems] = useState();
 
   const getOptionLabel = (option) => {
-    if (typeof option !== 'object') {
+    if (typeof option !== "object") {
       option = items.find((obj) => keyGetter(obj) === option);
     }
     return option ? titleGetter(option) : emptyTitle;
@@ -50,9 +56,12 @@ const SelectField = ({
               multiple
               value={value}
               onChange={onChange}
+              disabled={disabled}
             >
               {items.map((item) => (
-                <MenuItem key={keyGetter(item)} value={keyGetter(item)}>{titleGetter(item)}</MenuItem>
+                <MenuItem key={keyGetter(item)} value={keyGetter(item)}>
+                  {titleGetter(item)}
+                </MenuItem>
               ))}
             </Select>
           </>
@@ -62,12 +71,25 @@ const SelectField = ({
             options={items}
             getOptionLabel={getOptionLabel}
             renderOption={(props, option) => (
-              <MenuItem {...props} key={keyGetter(option)} value={keyGetter(option)}>{titleGetter(option)}</MenuItem>
+              <MenuItem
+                {...props}
+                key={keyGetter(option)}
+                value={keyGetter(option)}
+              >
+                {titleGetter(option)}
+              </MenuItem>
             )}
-            isOptionEqualToValue={(option, value) => keyGetter(option) === value}
+            isOptionEqualToValue={(option, value) =>
+              keyGetter(option) === value
+            }
             value={value}
-            onChange={(_, value) => onChange({ target: { value: value ? keyGetter(value) : emptyValue } })}
+            onChange={(_, value) =>
+              onChange({
+                target: { value: value ? keyGetter(value) : emptyValue },
+              })
+            }
             renderInput={(params) => <TextField {...params} label={label} />}
+            disabled={disabled}
           />
         )}
       </FormControl>

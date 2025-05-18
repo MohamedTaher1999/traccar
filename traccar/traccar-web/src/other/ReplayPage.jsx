@@ -131,7 +131,7 @@ const ReplayPage = () => {
     setShowCard(!!positionId);
   }, [setShowCard]);
 
-  const handleSubmit = useCatch(async ({ deviceId, from, to }) => {
+  const handleSubmit = useCatch(async ({ deviceId, from, to, manual }) => {
     setLoading(true);
     setSelectedDeviceId(deviceId);
     setFrom(from);
@@ -142,8 +142,9 @@ const ReplayPage = () => {
       if (response.ok) {
         setIndex(0);
         const positions = await response.json();
-        setPositions(positions);
-        if (positions.length) {
+        const filteredPositions=manual? positions.filter(position=>position?.isManual) : positions
+        setPositions(filteredPositions);
+        if (filteredPositions.length) {
           setExpanded(false);
         } else {
           throw Error(t('sharedNoData'));
@@ -219,7 +220,7 @@ const ReplayPage = () => {
               </div>
             </>
           ) : (
-            <ReportFilter handleSubmit={handleSubmit} fullScreen showOnly loading={loading} />
+            <ReportFilter isManual={true} handleSubmit={handleSubmit} fullScreen showOnly loading={loading} />
           )}
         </Paper>
       </div>

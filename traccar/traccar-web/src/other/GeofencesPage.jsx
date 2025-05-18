@@ -82,7 +82,7 @@ const GeofencesPage = () => {
         });
         if (response.ok) {
           const item = await response.json();
-          navigate(`/settings/geofence/${item.id}`);
+          navigate(`/settings/stop/${item.id}`);
         } else {
           throw Error(await response.text());
         }

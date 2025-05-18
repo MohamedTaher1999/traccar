@@ -171,7 +171,7 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
       if (!permissionResponse.ok) {
         throw Error(await permissionResponse.text());
       }
-      navigate(`/settings/geofence/${item.id}`);
+      navigate(`/settings/stop/${item.id}`);
     } else {
       throw Error(await response.text());
     }

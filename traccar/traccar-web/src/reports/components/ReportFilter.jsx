@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  FormControl, InputLabel, Select, MenuItem, Button, TextField, Typography,
+  FormControl, InputLabel, Select, MenuItem, Button, Switch, TextField, Typography,FormControlLabel,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
@@ -12,7 +12,7 @@ import SelectField from '../../common/components/SelectField';
 import { useRestriction } from '../../common/util/permissions';
 
 const ReportFilter = ({
-  children, handleSubmit, handleSchedule, showOnly, ignoreDevice, multiDevice, includeGroups, loading,
+  children, handleSubmit, handleSchedule, showOnly, ignoreDevice, multiDevice, includeGroups, loading, isManual
 }) => {
   const classes = useReportStyles();
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ const ReportFilter = ({
   const from = useSelector((state) => state.reports.from);
   const to = useSelector((state) => state.reports.to);
   const [button, setButton] = useState('json');
+  const [manual, setManual] = useState( false);
 
   const [description, setDescription] = useState();
   const [calendarId, setCalendarId] = useState();
@@ -86,6 +87,7 @@ const ReportFilter = ({
         to: selectedTo.toISOString(),
         calendarId,
         type,
+        manual:manual
       });
     }
   };
@@ -174,8 +176,23 @@ const ReportFilter = ({
               fullWidth
             />
           </div>
+
         </>
       )}
+      {
+        isManual&&   <FormControlLabel
+        control={(
+          <Switch
+            checked={manual}
+            onChange={(e) => setManual(e.target.checked)}
+            size="small"
+          />
+        )}
+        label={"Manual"}
+        labelPlacement="start"
+      />
+      }
+   
       {children}
       <div className={classes.filterItem}>
         {showOnly ? (

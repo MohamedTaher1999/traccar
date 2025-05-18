@@ -51,6 +51,14 @@ const UserConnectionsPage = () => {
               keyLink="groupId"
               label={t('settingsGroups')}
             />
+              <LinkField
+              endpointAll="/api/classes?all=true"
+              endpointLinked={`/api/classes?userId=${id}`}
+              baseId={id}
+              keyBase="userId"
+              keyLink="classTypeId"
+              label={t('settingsClasses')}
+            />
             <LinkField
               endpointAll="/api/geofences?all=true"
               endpointLinked={`/api/geofences?userId=${id}`}

@@ -6,6 +6,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import CreateIcon from '@mui/icons-material/Create';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FolderIcon from '@mui/icons-material/Folder';
+import ClassIcon from '@mui/icons-material/Class';
 import PersonIcon from '@mui/icons-material/Person';
 import StorageIcon from '@mui/icons-material/Storage';
 import BuildIcon from '@mui/icons-material/Build';
@@ -67,9 +68,9 @@ const SettingsMenu = () => {
             />
             <MenuItem
               title={t('sharedGeofences')}
-              link="/geofences"
+              link="/stops"
               icon={<CreateIcon />}
-              selected={location.pathname.startsWith('/settings/geofence')}
+              selected={location.pathname.startsWith('/settings/stop')}
             />
             {!features.disableGroups && (
               <MenuItem
@@ -77,6 +78,14 @@ const SettingsMenu = () => {
                 link="/settings/groups"
                 icon={<FolderIcon />}
                 selected={location.pathname.startsWith('/settings/group')}
+              />
+            )}
+             {!features.disableGroups && (
+              <MenuItem
+                title={t('settingsClasses')}
+                link="/settings/classes"
+                icon={<ClassIcon />}
+                selected={location.pathname.startsWith('/settings/class')}
               />
             )}
             {!features.disableDrivers && (
