@@ -232,7 +232,7 @@ public class NotificationResource extends ExtendedObjectResource<Notification> {
 
             usersIdWithClassID = storage.getObjects(UserWithClass.class, new Request(
                     new Columns.All(),
-                    new Condition.Equals("classid", classId)));
+                    new Condition.Equals("classTypeId", classId)));
 
 
             List<Long> userIds = new ArrayList<>();
