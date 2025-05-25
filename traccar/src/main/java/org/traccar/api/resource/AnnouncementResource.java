@@ -109,4 +109,31 @@ public class AnnouncementResource extends BaseObjectResource<Announcement> {
         return storage.getObjects(baseClass, new Request(
                 new Columns.All(), new Condition.Equals("deviceId", deviceId)));
     }
+
+
+    @GET
+    @Path("deviceAnnouncements/recent")
+    @PermitAll
+    public Collection<Announcement> getRecentAnnouncementForDevice(
+            @QueryParam("deviceId") String deviceId
+    ) throws StorageException {
+
+        // First get all announcements for the user
+        Collection<Announcement> allAnnouncements = storage.getObjects(baseClass, new Request(
+                new Columns.All(), new Condition.Equals("deviceId", deviceId)));
+
+        // Calculate the cutoff date (3 days ago)
+        LocalDateTime cutoffDate = LocalDateTime.now().minusDays(3);
+
+        // Filter announcements to only keep those from the last 3 days
+        return allAnnouncements.stream()
+                .filter(announcement -> {
+                    // Convert the announcement date to LocalDateTime if it's not already
+                    LocalDateTime announcementDate = announcement.getDate().toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDateTime();
+                    return announcementDate.isAfter(cutoffDate);
+                })
+                .collect(Collectors.toList());
+    }
 }
